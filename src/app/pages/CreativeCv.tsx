@@ -2,360 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { Moon, Sun, Languages, Mail, Phone, Linkedin, Github, MapPin, Download, Zap, Terminal, Rocket, Target, Users, TrendingUp, FileText, Menu, X } from 'lucide-react';
 import { Link } from 'react-router';
 import { motion, useScroll, useTransform, useMotionValue, useSpring, AnimatePresence } from 'motion/react';
+import { useTranslation } from 'react-i18next';
 
-type Language = 'fr' | 'en';
 type Theme = 'light' | 'dark';
-
-const translations = {
-  fr: {
-    toggleTheme: 'Basculer le thème',
-    toggleLanguage: 'Switch to English',
-    hero: {
-      greeting: 'Salut, je suis',
-      role: 'Ingénieur Full Stack & Scrum Master',
-      tagline: 'Je transforme des idées complexes en solutions élégantes',
-      cta: 'Découvrir mon parcours',
-      stats: [
-        { label: 'Ans d\'expérience', value: '5+' },
-        { label: 'Projets livrés', value: '20+' },
-        { label: 'Technologies', value: '15+' }
-      ]
-    },
-    nav: {
-      about: 'À propos',
-      experience: 'Expérience',
-      skills: 'Compétences',
-      projects: 'Projets',
-      contact: 'Contact',
-      simple: 'Version Simple'
-    },
-    about: {
-      title: 'Mon Histoire',
-      description: 'Passionné par la technologie et l\'innovation, je combine expertise technique et vision produit pour créer des solutions qui font la différence. De la migration de systèmes legacy vers le cloud à l\'automatisation de processus complexes, j\'aime relever des défis techniques ambitieux.',
-      highlights: [
-        { icon: '⚡', text: 'Automatisation: -95% de temps de traitement' },
-        { icon: '☁️', text: 'Migration VBA → AWS Cloud' },
-        { icon: '🌍', text: 'Collaboration internationale (4 continents)' },
-        { icon: '🚀', text: 'CI/CD avec Jenkins & GitHub Actions' }
-      ]
-    },
-    experience: {
-      title: 'Parcours Professionnel',
-      current: 'Actuellement',
-      jobs: [
-        {
-          company: 'Carrier',
-          role: 'Ingénieur Projet',
-          period: '2021 – Présent',
-          location: 'France',
-          type: 'CDI',
-          highlights: [
-            {
-              title: 'Automatisation Intelligente',
-              desc: 'Réduction du temps de traitement de 2 semaines à 10 minutes via automatisation',
-              impact: '95% gain de temps'
-            },
-            {
-              title: 'Migration Cloud',
-              desc: 'Migration complète d\'une solution legacy (VBA/IIS Express) vers AWS',
-              impact: 'Architecture moderne'
-            },
-            {
-              title: 'Full Stack Development',
-              desc: 'Application de pré-vente React/Node.js avec moteur de règles configurables',
-              impact: 'Solution scalable'
-            },
-            {
-              title: 'DevOps & CI/CD',
-              desc: 'Mise en place de pipelines Jenkins puis GitHub Actions pour déploiements mensuels',
-              impact: 'Livraison continue'
-            }
-          ],
-          tech: ['React', 'Node.js', 'AWS', 'Jenkins', 'GitHub Actions', 'VBA']
-        },
-        {
-          company: 'Akkodis',
-          role: 'Consultant Ingénierie Logicielle',
-          period: '2021',
-          location: 'Mission chez Carrier',
-          type: 'Consultant',
-          highlights: [
-            {
-              title: 'Tests Automatisés',
-              desc: 'Développement de scripts pour applications legacy VB6',
-              impact: 'Qualité améliorée'
-            },
-            {
-              title: 'Intégration Réussie',
-              desc: 'Internalisation chez le client final',
-              impact: 'Transition CDI'
-            }
-          ],
-          tech: ['VB6', 'Tests Automatisés']
-        },
-        {
-          company: 'Mission Transverse',
-          role: 'Scrum Master',
-          period: 'Multi-projets',
-          location: 'France',
-          type: 'Transverse',
-          highlights: [
-            {
-              title: 'Coordination Agile',
-              desc: 'Animation de rituels Scrum et Scrum of Scrums multi-équipes',
-              impact: 'Agilité optimisée'
-            },
-            {
-              title: 'Gestion des Dépendances',
-              desc: 'Suivi d\'avancement et coordination inter-équipes via Rally/Jira',
-              impact: 'Synchronisation'
-            }
-          ],
-          tech: ['Scrum', 'Rally', 'Jira', 'Agile']
-        }
-      ]
-    },
-    skills: {
-      title: 'Arsenal Technique',
-      categories: [
-        {
-          name: 'Front-end',
-          color: 'from-blue-500 to-cyan-500',
-          skills: [
-            { name: 'React', level: 90, icon: '⚛️' },
-            { name: 'TypeScript', level: 85, icon: '📘' },
-            { name: 'HTML/CSS', level: 85, icon: '🎨' }
-          ]
-        },
-        {
-          name: 'Back-end',
-          color: 'from-green-500 to-emerald-500',
-          skills: [
-            { name: 'Node.js', level: 85, icon: '🟢' },
-            { name: 'REST APIs', level: 80, icon: '🔌' },
-            { name: 'VB6/VBA', level: 70, icon: '📊' }
-          ]
-        },
-        {
-          name: 'DevOps & Cloud',
-          color: 'from-orange-500 to-red-500',
-          skills: [
-            { name: 'AWS', level: 75, icon: '☁️' },
-            { name: 'CI/CD', level: 85, icon: '🔄' },
-            { name: 'Docker', level: 70, icon: '🐳' }
-          ]
-        },
-        {
-          name: 'Méthodologies',
-          color: 'from-purple-500 to-pink-500',
-          skills: [
-            { name: 'Scrum/Agile', level: 90, icon: '🎯' },
-            { name: 'Jira/Rally', level: 85, icon: '📋' },
-            { name: 'Leadership', level: 80, icon: '👥' }
-          ]
-        }
-      ]
-    },
-    projects: {
-      title: 'Projets & Passions',
-      items: [
-        {
-          name: 'Carnet d\'Activité Canine',
-          description: 'Application web full-stack pour tracker et gérer les activités de vos chiens',
-          tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-          category: 'Side Project',
-          image: '🐕'
-        },
-        {
-          name: 'Rugby',
-          description: 'Passion pour le rugby et l\'esprit d\'équipe qui m\'accompagne depuis toujours',
-          tech: ['Esprit d\'équipe', 'Persévérance', 'Stratégie'],
-          category: 'Passion',
-          image: '🏉'
-        }
-      ]
-    },
-    contact: {
-      title: 'Connectons-nous',
-      subtitle: 'Toujours ouvert à discuter de nouveaux projets et opportunités',
-      download: 'Télécharger le CV'
-    }
-  },
-  en: {
-    toggleTheme: 'Toggle theme',
-    toggleLanguage: 'Passer au français',
-    hero: {
-      greeting: 'Hi, I\'m',
-      role: 'Full Stack Engineer & Scrum Master',
-      tagline: 'I transform complex ideas into elegant solutions',
-      cta: 'Explore my journey',
-      stats: [
-        { label: 'Years of experience', value: '5+' },
-        { label: 'Projects delivered', value: '20+' },
-        { label: 'Technologies', value: '15+' }
-      ]
-    },
-    nav: {
-      about: 'About',
-      experience: 'Experience',
-      skills: 'Skills',
-      projects: 'Projects',
-      contact: 'Contact',
-      simple: 'Simple Version'
-    },
-    about: {
-      title: 'My Story',
-      description: 'Passionate about technology and innovation, I combine technical expertise and product vision to create solutions that make a difference. From migrating legacy systems to the cloud to automating complex processes, I love tackling ambitious technical challenges.',
-      highlights: [
-        { icon: '⚡', text: 'Automation: -95% processing time' },
-        { icon: '☁️', text: 'Migration VBA → AWS Cloud' },
-        { icon: '🌍', text: 'International collaboration (4 continents)' },
-        { icon: '🚀', text: 'CI/CD with Jenkins & GitHub Actions' }
-      ]
-    },
-    experience: {
-      title: 'Professional Journey',
-      current: 'Current',
-      jobs: [
-        {
-          company: 'Carrier',
-          role: 'Project Engineer',
-          period: '2021 – Present',
-          location: 'France',
-          type: 'Full-time',
-          highlights: [
-            {
-              title: 'Smart Automation',
-              desc: 'Reduced processing time from 2 weeks to 10 minutes through automation',
-              impact: '95% time saved'
-            },
-            {
-              title: 'Cloud Migration',
-              desc: 'Complete migration of legacy solution (VBA/IIS Express) to AWS',
-              impact: 'Modern architecture'
-            },
-            {
-              title: 'Full Stack Development',
-              desc: 'React/Node.js pre-sales application with configurable rules engine',
-              impact: 'Scalable solution'
-            },
-            {
-              title: 'DevOps & CI/CD',
-              desc: 'Implemented Jenkins then GitHub Actions pipelines for monthly deployments',
-              impact: 'Continuous delivery'
-            }
-          ],
-          tech: ['React', 'Node.js', 'AWS', 'Jenkins', 'GitHub Actions', 'VBA']
-        },
-        {
-          company: 'Akkodis',
-          role: 'Software Engineering Consultant',
-          period: '2021',
-          location: 'Assignment at Carrier',
-          type: 'Consultant',
-          highlights: [
-            {
-              title: 'Automated Testing',
-              desc: 'Developed scripts for legacy VB6 applications',
-              impact: 'Improved quality'
-            },
-            {
-              title: 'Successful Integration',
-              desc: 'Internalized at final client',
-              impact: 'Full-time transition'
-            }
-          ],
-          tech: ['VB6', 'Automated Testing']
-        },
-        {
-          company: 'Cross-functional Mission',
-          role: 'Scrum Master',
-          period: 'Multi-project',
-          location: 'France',
-          type: 'Transverse',
-          highlights: [
-            {
-              title: 'Agile Coordination',
-              desc: 'Facilitated Scrum and Scrum of Scrums ceremonies for multiple teams',
-              impact: 'Optimized agility'
-            },
-            {
-              title: 'Dependency Management',
-              desc: 'Progress tracking and inter-team coordination via Rally/Jira',
-              impact: 'Synchronization'
-            }
-          ],
-          tech: ['Scrum', 'Rally', 'Jira', 'Agile']
-        }
-      ]
-    },
-    skills: {
-      title: 'Technical Arsenal',
-      categories: [
-        {
-          name: 'Front-end',
-          color: 'from-blue-500 to-cyan-500',
-          skills: [
-            { name: 'React', level: 90, icon: '⚛️' },
-            { name: 'TypeScript', level: 85, icon: '📘' },
-            { name: 'HTML/CSS', level: 85, icon: '🎨' }
-          ]
-        },
-        {
-          name: 'Back-end',
-          color: 'from-green-500 to-emerald-500',
-          skills: [
-            { name: 'Node.js', level: 85, icon: '🟢' },
-            { name: 'REST APIs', level: 80, icon: '🔌' },
-            { name: 'VB6/VBA', level: 70, icon: '📊' }
-          ]
-        },
-        {
-          name: 'DevOps & Cloud',
-          color: 'from-orange-500 to-red-500',
-          skills: [
-            { name: 'AWS', level: 75, icon: '☁️' },
-            { name: 'CI/CD', level: 85, icon: '🔄' },
-            { name: 'Docker', level: 70, icon: '🐳' }
-          ]
-        },
-        {
-          name: 'Methodologies',
-          color: 'from-purple-500 to-pink-500',
-          skills: [
-            { name: 'Scrum/Agile', level: 90, icon: '🎯' },
-            { name: 'Jira/Rally', level: 85, icon: '📋' },
-            { name: 'Leadership', level: 80, icon: '👥' }
-          ]
-        }
-      ]
-    },
-    projects: {
-      title: 'Projects & Passions',
-      items: [
-        {
-          name: 'Dog Activity Tracker',
-          description: 'Full-stack web application to track and manage your dogs\' activities',
-          tech: ['React', 'Node.js', 'MongoDB', 'Express'],
-          category: 'Side Project',
-          image: '🐕'
-        },
-        {
-          name: 'Rugby',
-          description: 'Passion for rugby and team spirit that has been with me forever',
-          tech: ['Team Spirit', 'Perseverance', 'Strategy'],
-          category: 'Passion',
-          image: '🏉'
-        }
-      ]
-    },
-    contact: {
-      title: 'Let\'s Connect',
-      subtitle: 'Always open to discussing new projects and opportunities',
-      download: 'Download Resume'
-    }
-  }
-};
 
 function CursorFollower() {
   const cursorX = useMotionValue(-100);
@@ -388,15 +37,17 @@ function CursorFollower() {
 
 export default function CreativeCv() {
   const [theme, setTheme] = useState<Theme>('dark');
-  const [language, setLanguage] = useState<Language>('fr');
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
 
+  const { t, i18n } = useTranslation();
   const { scrollYProgress } = useScroll();
-  const t = translations[language];
 
   const toggleTheme = () => setTheme(theme === 'light' ? 'dark' : 'light');
-  const toggleLanguage = () => setLanguage(language === 'fr' ? 'en' : 'fr');
+  const toggleLanguage = () => {
+    const newLang = i18n.language === 'fr' ? 'en' : 'fr';
+    i18n.changeLanguage(newLang);
+  };
 
   const isDark = theme === 'dark';
 
@@ -453,11 +104,11 @@ export default function CreativeCv() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
             {[
-              { id: 'about', label: t.nav.about },
-              { id: 'experience', label: t.nav.experience },
-              { id: 'skills', label: t.nav.skills },
-              { id: 'projects', label: t.nav.projects },
-              { id: 'contact', label: t.nav.contact }
+              { id: 'about', label: t('nav.about') },
+              { id: 'experience', label: t('nav.experience') },
+              { id: 'skills', label: t('nav.skills') },
+              { id: 'projects', label: t('nav.projects') },
+              { id: 'contact', label: t('nav.contact') }
             ].map(({ id, label }) => (
               <button
                 key={id}
@@ -492,7 +143,7 @@ export default function CreativeCv() {
               {isDark ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <button onClick={toggleLanguage} className="px-3 py-1 rounded-full hover:bg-gray-800 transition-colors text-xs font-bold">
-              {language.toUpperCase()}
+              {i18n.language.toUpperCase()}
             </button>
             <Link to="/simple" className="p-2 rounded-full hover:bg-gray-800 transition-colors">
               <FileText className="w-4 h-4" />
@@ -514,11 +165,11 @@ export default function CreativeCv() {
           >
             <div className="space-y-4">
               {[
-                { id: 'about', label: t.nav.about },
-                { id: 'experience', label: t.nav.experience },
-                { id: 'skills', label: t.nav.skills },
-                { id: 'projects', label: t.nav.projects },
-                { id: 'contact', label: t.nav.contact }
+                { id: 'about', label: t('nav.about') },
+                { id: 'experience', label: t('nav.experience') },
+                { id: 'skills', label: t('nav.skills') },
+                { id: 'projects', label: t('nav.projects') },
+                { id: 'contact', label: t('nav.contact') }
               ].map(({ id, label }) => (
                 <button
                   key={id}
@@ -596,7 +247,7 @@ export default function CreativeCv() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
             >
-              {t.hero.greeting}
+              {t('hero.greeting')}
             </motion.p>
 
             <motion.h1
@@ -620,7 +271,7 @@ export default function CreativeCv() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              {t.hero.role}
+              {t('hero.role')}
             </motion.p>
 
             <motion.p
@@ -631,7 +282,7 @@ export default function CreativeCv() {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.7 }}
             >
-              {t.hero.tagline}
+              {t('hero.tagline')}
             </motion.p>
 
             {/* Social Links */}
@@ -668,7 +319,7 @@ export default function CreativeCv() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 1.1 }}
             >
-              {t.hero.stats.map((stat, i) => (
+              {(t('hero.stats', { returnObjects: true }) as Array<any>).map((stat, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.05 }}
@@ -721,7 +372,7 @@ export default function CreativeCv() {
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-12">
               <span className="bg-gradient-to-r from-blue-500 to-purple-500 bg-clip-text text-transparent">
-                {t.about.title}
+                {t('about.title')}
               </span>
             </h2>
 
@@ -730,11 +381,11 @@ export default function CreativeCv() {
                 <p className={`text-lg leading-relaxed mb-8 ${
                   isDark ? 'text-gray-300' : 'text-gray-700'
                 }`}>
-                  {t.about.description}
+                  {t('about.description')}
                 </p>
 
                 <div className="space-y-4">
-                  {t.about.highlights.map((highlight, i) => (
+                  {(t('about.highlights', { returnObjects: true }) as Array<any>).map((highlight, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
@@ -794,12 +445,12 @@ export default function CreativeCv() {
             className="text-5xl md:text-6xl font-bold mb-16"
           >
             <span className="bg-gradient-to-r from-purple-500 to-pink-500 bg-clip-text text-transparent">
-              {t.experience.title}
+              {t('experience.title')}
             </span>
           </motion.h2>
 
           <div className="space-y-16">
-            {t.experience.jobs.map((job, index) => (
+            {(t('experience.jobs', { returnObjects: true }) as Array<any>).map((job, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -820,7 +471,7 @@ export default function CreativeCv() {
                         <h3 className="text-3xl font-bold">{job.role}</h3>
                         {index === 0 && (
                           <span className="px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-500 text-white text-xs font-bold">
-                            {t.experience.current}
+                            {t('experience.current')}
                           </span>
                         )}
                       </div>
@@ -912,12 +563,12 @@ export default function CreativeCv() {
             className="text-5xl md:text-6xl font-bold mb-16"
           >
             <span className="bg-gradient-to-r from-green-500 to-cyan-500 bg-clip-text text-transparent">
-              {t.skills.title}
+              {t('skills.title')}
             </span>
           </motion.h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {t.skills.categories.map((category, categoryIndex) => (
+            {(t('skills.categories', { returnObjects: true }) as Array<any>).map((category, categoryIndex) => (
               <motion.div
                 key={categoryIndex}
                 initial={{ opacity: 0, scale: 0.9 }}
@@ -979,12 +630,12 @@ export default function CreativeCv() {
             className="text-5xl md:text-6xl font-bold mb-16"
           >
             <span className="bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-              {t.projects.title}
+              {t('projects.title')}
             </span>
           </motion.h2>
 
           <div className="grid md:grid-cols-2 gap-8">
-            {t.projects.items.map((project, index) => (
+            {(t('projects.items', { returnObjects: true }) as Array<any>).map((project, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
@@ -1050,12 +701,12 @@ export default function CreativeCv() {
           >
             <h2 className="text-5xl md:text-6xl font-bold mb-6">
               <span className="bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 bg-clip-text text-transparent">
-                {t.contact.title}
+                {t('contact.title')}
               </span>
             </h2>
 
             <p className={`text-xl mb-12 ${isDark ? 'text-gray-400' : 'text-gray-600'}`}>
-              {t.contact.subtitle}
+              {t('contact.subtitle')}
             </p>
 
             <div className="flex flex-wrap justify-center gap-4 mb-12">
@@ -1079,7 +730,7 @@ export default function CreativeCv() {
                 }`}
               >
                 <Download className="w-5 h-5" />
-                {t.contact.download}
+                {t('contact.download')}
               </motion.button>
             </div>
 

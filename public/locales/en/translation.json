@@ -1,0 +1,174 @@
+{
+  "toggleTheme": "Toggle theme",
+  "toggleLanguage": "Passer au français",
+  "hero": {
+    "greeting": "Hi, I'm",
+    "role": "Full Stack Engineer & Scrum Master",
+    "tagline": "I transform complex ideas into elegant solutions",
+    "cta": "Explore my journey",
+    "stats": [
+      { "label": "Years of experience", "value": "5+" },
+      { "label": "Projects delivered", "value": "20+" },
+      { "label": "Technologies", "value": "15+" }
+    ]
+  },
+  "nav": {
+    "about": "About",
+    "experience": "Experience",
+    "skills": "Skills",
+    "projects": "Projects",
+    "contact": "Contact",
+    "simple": "Simple Version"
+  },
+  "about": {
+    "title": "My Story",
+    "description": "Passionate about technology and innovation, I combine technical expertise and product vision to create solutions that make a difference. From migrating legacy systems to the cloud to automating complex processes, I love tackling ambitious technical challenges.",
+    "highlights": [
+      { "icon": "⚡", "text": "Automation: -95% processing time" },
+      { "icon": "☁️", "text": "Migration VBA → AWS Cloud" },
+      { "icon": "🌍", "text": "International collaboration (4 continents)" },
+      { "icon": "🚀", "text": "CI/CD with Jenkins & GitHub Actions" }
+    ]
+  },
+  "experience": {
+    "title": "Professional Journey",
+    "current": "Current",
+    "jobs": [
+      {
+        "company": "Carrier",
+        "role": "Project Engineer",
+        "period": "2021 – Present",
+        "location": "France",
+        "type": "Full-time",
+        "highlights": [
+          {
+            "title": "Smart Automation",
+            "desc": "Reduced processing time from 2 weeks to 10 minutes through automation",
+            "impact": "95% time saved"
+          },
+          {
+            "title": "Cloud Migration",
+            "desc": "Complete migration of legacy solution (VBA/IIS Express) to AWS",
+            "impact": "Modern architecture"
+          },
+          {
+            "title": "Full Stack Development",
+            "desc": "React/Node.js pre-sales application with configurable rules engine",
+            "impact": "Scalable solution"
+          },
+          {
+            "title": "DevOps & CI/CD",
+            "desc": "Implemented Jenkins then GitHub Actions pipelines for monthly deployments",
+            "impact": "Continuous delivery"
+          }
+        ],
+        "tech": ["React", "Node.js", "AWS", "Jenkins", "GitHub Actions", "VBA"]
+      },
+      {
+        "company": "Akkodis",
+        "role": "Software Engineering Consultant",
+        "period": "2021",
+        "location": "Assignment at Carrier",
+        "type": "Consultant",
+        "highlights": [
+          {
+            "title": "Automated Testing",
+            "desc": "Developed scripts for legacy VB6 applications",
+            "impact": "Improved quality"
+          },
+          {
+            "title": "Successful Integration",
+            "desc": "Internalized at final client",
+            "impact": "Full-time transition"
+          }
+        ],
+        "tech": ["VB6", "Automated Testing"]
+      },
+      {
+        "company": "Cross-functional Mission",
+        "role": "Scrum Master",
+        "period": "Multi-project",
+        "location": "France",
+        "type": "Transverse",
+        "highlights": [
+          {
+            "title": "Agile Coordination",
+            "desc": "Facilitated Scrum and Scrum of Scrums ceremonies for multiple teams",
+            "impact": "Optimized agility"
+          },
+          {
+            "title": "Dependency Management",
+            "desc": "Progress tracking and inter-team coordination via Rally/Jira",
+            "impact": "Synchronization"
+          }
+        ],
+        "tech": ["Scrum", "Rally", "Jira", "Agile"]
+      }
+    ]
+  },
+  "skills": {
+    "title": "Technical Arsenal",
+    "categories": [
+      {
+        "name": "Front-end",
+        "color": "from-blue-500 to-cyan-500",
+        "skills": [
+          { "name": "React", "level": 90, "icon": "⚛️" },
+          { "name": "TypeScript", "level": 85, "icon": "📘" },
+          { "name": "HTML/CSS", "level": 85, "icon": "🎨" }
+        ]
+      },
+      {
+        "name": "Back-end",
+        "color": "from-green-500 to-emerald-500",
+        "skills": [
+          { "name": "Node.js", "level": 85, "icon": "🟢" },
+          { "name": "REST APIs", "level": 80, "icon": "🔌" },
+          { "name": "VB6/VBA", "level": 70, "icon": "📊" }
+        ]
+      },
+      {
+        "name": "DevOps & Cloud",
+        "color": "from-orange-500 to-red-500",
+        "skills": [
+          { "name": "AWS", "level": 75, "icon": "☁️" },
+          { "name": "CI/CD", "level": 85, "icon": "🔄" },
+          { "name": "Docker", "level": 70, "icon": "🐳" }
+        ]
+      },
+      {
+        "name": "Methodologies",
+        "color": "from-purple-500 to-pink-500",
+        "skills": [
+          { "name": "Scrum/Agile", "level": 90, "icon": "🎯" },
+          { "name": "Jira/Rally", "level": 85, "icon": "📋" },
+          { "name": "Leadership", "level": 80, "icon": "👥" }
+        ]
+      }
+    ]
+  },
+  "projects": {
+    "title": "Projects & Passions",
+    "items": [
+      {
+        "name": "Dog Activity Tracker",
+        "description": "Full-stack web application to track and manage your dogs' activities",
+        "tech": ["React", "Node.js", "MongoDB", "Express"],
+        "category": "Side Project",
+        "image": "🐕"
+      },
+      {
+        "name": "Rugby",
+        "description": "Passion for rugby and team spirit that has been with me forever",
+        "tech": ["Team Spirit", "Perseverance", "Strategy"],
+        "category": "Passion",
+        "image": "🏉"
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's Connect",
+    "subtitle": "Always open to discussing new projects and opportunities",
+    "download": "Download Resume"
+  }
+}
