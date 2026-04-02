@@ -296,7 +296,7 @@ export default function CreativeCv() {
                 { icon: Mail, href: 'mailto:votre.email@example.com' },
                 { icon: Linkedin, href: '#' },
                 { icon: Github, href: '#' },
-                { icon: Phone, href: 'tel:+33' }
+                // { icon: Phone, href: 'tel:+33' }
               ].map((social, i) => (
                 <motion.a
                   key={i}
@@ -738,7 +738,7 @@ export default function CreativeCv() {
               {[
                 { icon: Linkedin, href: '#', label: 'LinkedIn' },
                 { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Phone, href: 'tel:+33', label: 'Phone' }
+                // { icon: Phone, href: 'tel:+33', label: 'Phone' }
               ].map((social, i) => (
                 <motion.a
                   key={i}

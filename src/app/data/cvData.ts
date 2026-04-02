@@ -1,6 +1,6 @@
 export const cvData = {
   fr: {
-    name: 'Votre Nom',
+    name: 'Maximilien Tordeux',
     title: 'Ingénieur Full Stack & Scrum Master',
     tagline: 'Ingénieur généraliste passionné par le développement logiciel, l\'automatisation et le cloud',
     summary: 'Ingénieur généraliste diplômé (ESEO Angers, Master - spécialisation Énergie & Environnement) avec expérience confirmée en développement logiciel, automatisation de processus et déploiement cloud. Expert en applications de pré-vente intégrant des moteurs de règles pour la configuration d\'équipements techniques. Capacité à travailler en environnement international et à faire l\'interface entre équipes métier et développement.',

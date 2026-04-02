@@ -237,7 +237,7 @@ export default function UltimateCv() {
             >
               {language.toUpperCase()}
             </motion.button>
-            <Link to="/simple">
+            {/* <Link to="/simple">
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
@@ -245,7 +245,7 @@ export default function UltimateCv() {
               >
                 <FileText className="w-4 h-4" />
               </motion.div>
-            </Link>
+            </Link> */}
           </div>
         </div>
       </motion.nav>
@@ -402,10 +402,11 @@ export default function UltimateCv() {
               transition={{ delay: 0.9 }}
             >
               {[
-                { icon: Mail, href: 'mailto:votre.email@example.com', label: 'Email' },
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Phone, href: 'tel:+33', label: 'Phone' }
+                // { icon: Mail, href: 'mailto:votre.email@example.com', label: 'Email' },
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/maximilien-tordeux-27ab6a64/', label: 'LinkedIn' },
+                { icon: Github, href: 'https://github.com/troupix', label: 'GitHub' },
+                { icon: Github, href: 'https://github.com/troupix-org', label: 'GitHub' },
+                // { icon: Phone, href: 'tel:+33', label: 'Phone' }
               ].map((social, i) => (
                 <motion.a
                   key={i}
@@ -1081,7 +1082,7 @@ export default function UltimateCv() {
               {t.sections.subtitle}
             </p>
 
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
+            {/* <div className="flex flex-wrap justify-center gap-4 mb-12">
               <motion.a
                 href="mailto:votre.email@example.com"
                 whileHover={{ scale: 1.05 }}
@@ -1102,13 +1103,14 @@ export default function UltimateCv() {
                 <Download className="w-5 h-5" />
                 {t.sections.download}
               </motion.button>
-            </div>
+            </div> */}
 
             <div className="flex justify-center gap-6">
               {[
-                { icon: Linkedin, href: '#', label: 'LinkedIn' },
-                { icon: Github, href: '#', label: 'GitHub' },
-                { icon: Phone, href: 'tel:+33', label: 'Phone' }
+                { icon: Linkedin, href: 'https://www.linkedin.com/in/maximilien-tordeux-27ab6a64/', label: 'LinkedIn' },
+                { icon: Github, href: 'https://github.com/troupix', label: 'GitHub' },
+                { icon: Github, href: 'https://github.com/troupix-org', label: 'GitHub' },
+                // { icon: Phone, href: 'tel:+33', label: 'Phone' }
               ].map((social, i) => (
                 <motion.a
                   key={i}
